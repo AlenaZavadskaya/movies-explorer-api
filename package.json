@@ -1,0 +1,21 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Backend of the diploma project in Yandex.Praktikum",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlenaZavadskaya/movies-explorer-api.git"
+  },
+  "author": "Alena Zavadskaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlenaZavadskaya/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/AlenaZavadskaya/movies-explorer-api#readme"
+}
