@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/AlenaZavadskaya/movies-explorer-api/issues"
   },
-  "homepage": "https://github.com/AlenaZavadskaya/movies-explorer-api#readme"
+  "homepage": "https://github.com/AlenaZavadskaya/movies-explorer-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^5.11.15",
+    "validator": "^13.5.2"
+  }
 }
