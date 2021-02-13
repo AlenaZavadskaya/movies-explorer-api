@@ -18,9 +18,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const {
-    name, email, password,
-  } = req.body;
+  const { name, email, password } = req.body;
   User.findOne({ email })
     .then((user) => {
       if (user) {
@@ -32,12 +30,27 @@ module.exports.createUser = (req, res, next) => {
       email,
       password: hash,
       name,
-
     }))
     .then((user) => {
-      // eslint-disable-next-line no-shadow
       User.findById(user._id).then((user) => res.status(200).send(user));
     })
+    .catch(next);
+};
+
+module.exports.updateUser = (req, res, next) => {
+  const { email, name } = req.body;
+  const id = req.user._id;
+  User.findByIdAndUpdate(
+    id,
+    { email, name },
+    {
+      new: true,
+      runValidators: true,
+      upsert: true,
+    },
+  )
+    .orFail(new NotFoundError('Данный пользователь отсутствует'))
+    .then((user) => res.status(200).send(user))
     .catch(next);
 };
 
