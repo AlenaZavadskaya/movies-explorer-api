@@ -11,7 +11,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => new NotFoundError('Нет пользователя с таким id'))
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
       next(err);
     });
@@ -31,26 +31,23 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
       name,
     }))
-    .then((user) => {
-      User.findById(user._id).then((user) => res.status(200).send(user));
+    .then((data) => {
+      res.send({ email: data.email, name: data.name });
     })
     .catch(next);
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { email, name } = req.body;
-  const id = req.user._id;
   User.findByIdAndUpdate(
-    id,
-    { email, name },
+    req.user._id,
+    req.body,
     {
       new: true,
       runValidators: true,
-      upsert: true,
     },
   )
     .orFail(new NotFoundError('Данный пользователь отсутствует'))
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
@@ -59,7 +56,7 @@ module.exports.login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      res.status(200).send({
+      res.send({
         token: jwt.sign(
           { _id: user._id },
           NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',

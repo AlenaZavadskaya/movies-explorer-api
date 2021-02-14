@@ -1,12 +1,13 @@
 const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
+const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
     .populate('owner')
     .then((movies) => {
-      res.status(200).send(movies);
+      res.send(movies);
     })
     .catch(next);
 };
@@ -38,11 +39,10 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
   })
     .then((movie) => {
-      res.status(200).send({ movie });
+      res.send({ movie });
     })
     .catch((err) => {
-      // eslint-disable-next-line eqeqeq
-      if (err.name == 'ValidationError') {
+      if (err.name === 'ValidationError') {
         throw new BadRequestError('Ошибка валидации');
       }
       next(err);
@@ -54,24 +54,22 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
-        throw new NotFoundError('Карточка не найдена');
-      // eslint-disable-next-line eqeqeq
-      } else if (movie.owner == req.user._id) {
+        throw new NotFoundError('Фильм не найден');
+      } else if ((movie.owner._id).toString() === req.user._id) {
         Movie.findByIdAndRemove(req.params.movieId)
-          // eslint-disable-next-line no-shadow
-          .then((movie) => {
-            res.status(200).send({ data: movie });
+          .then((removedMovie) => {
+            res.send(removedMovie);
           })
           .catch((error) => {
             if (error.name === 'CastError') {
-              throw new NotFoundError('Карточка не найдена');
+              throw new NotFoundError('Фильм не найден');
             } else {
               next(error);
             }
           });
       } else {
-        throw new BadRequestError(
-          'Вы не можете удалять карточки других пользователей',
+        throw new ForbiddenError(
+          'Вы не можете удалять фильмы других пользователей',
         );
       }
     })
