@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
+const helmet = require('helmet');
 require('dotenv').config();
+const routes = require('./routes/index');
 
 const NotFoundError = require('./errors/not-found-err');
-const usersRoutes = require('./routes/users');
-const moviesRoutes = require('./routes/movies');
-const { login, createUser } = require('./controllers/users');
-const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -22,12 +22,16 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useUnifiedTopology: true,
 });
 
+app.use(helmet());
+
+app.use(requestLogger);
+
 // подключаем мидлвары, роуты и всё остальное...
-app.use('/signin', login);
-app.use('/signup', createUser);
-app.use(auth);
-app.use('/', usersRoutes);
-app.use('/', moviesRoutes);
+app.use(routes);
+
+app.use(errorLogger);
+
+app.use(errors());
 
 app.use((err, req, res, next) => { // централизованный обработчик ошибок
   const { status = 500, message } = err;
