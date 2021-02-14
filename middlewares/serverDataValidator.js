@@ -117,6 +117,10 @@ const movieValidation = celebrate({
         'string.empty': 'Поле "thumbnail" должно быть заполнено',
         'any.required': 'Поле "thumbnail" обязательное для заполнения',
       }),
+    movieId: Joi.number().required()
+      .messages({
+        'any.required': 'Поле "movieId" обязательное для заполнения.',
+      }),
     nameRU: Joi.string().required().messages({
       'string.empty': 'Поле "nameRU" должно быть заполнено',
       'any.required': 'Поле "nameRU" обязательное для заполнения',
