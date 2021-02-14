@@ -8,6 +8,7 @@ const routes = require('./routes/index');
 
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const limiter = require('./utils/limiter');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -22,11 +23,12 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useUnifiedTopology: true,
 });
 
+app.use(limiter);
+
 app.use(helmet());
 
 app.use(requestLogger);
 
-// подключаем мидлвары, роуты и всё остальное...
 app.use(routes);
 
 app.use(errorLogger);
