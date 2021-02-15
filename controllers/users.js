@@ -44,6 +44,7 @@ module.exports.updateUser = (req, res, next) => {
     {
       new: true,
       runValidators: true,
+      omitUndefined: true,
     },
   )
     .orFail(new NotFoundError('Данный пользователь отсутствует'))

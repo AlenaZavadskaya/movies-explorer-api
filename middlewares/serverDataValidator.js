@@ -39,14 +39,14 @@ const userLoginValidation = celebrate({
 
 const userUpdateValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30)
+    name: Joi.string().min(2).max(30)
       .messages({
         'string.empty': 'Поле "name" должно быть заполнено',
         'string.min': 'Поле "name" должно быть не менее 2 символов',
         'string.max': 'Поле "name" должно быть не более 30 символов',
         'any.required': 'Поле "name" обязательное для заполнения',
       }),
-    email: Joi.string().email().required().messages({
+    email: Joi.string().email().messages({
       'string.empty': 'Поле "email" должно быть заполнено',
       'string.email': 'Поле "email" содержит некорректные данные',
       'any.required': 'Поле "email" обязательное для заполнения',
