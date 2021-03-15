@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const cors = require('cors');
-const limiter = require('./utils/limiter');
+// const limiter = require('./utils/limiter');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const centralErrorHandler = require('./middlewares/central-error-handler');
@@ -42,8 +42,8 @@ app.use((req, res, next) => {
 
 app.options('*', cors());
 app.use(requestLogger);
-app.use(limiter);
-app.use(helmet());
+// app.use(limiter);
+// app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
