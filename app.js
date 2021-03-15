@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 const limiter = require('./utils/limiter');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -19,6 +20,27 @@ mongoose.connect(BASE_URL, {
   useUnifiedTopology: true,
 });
 
+const allowedCors = [
+  'https://a-z.movies-explorer.students.nomoredomains.monster',
+  'http://a-z.movies-explorer.students.nomoredomains.monster',
+  'https://www.a-z.movies-explorer.students.nomoredomains.monster',
+  'http://www.a-z.movies-explorer.students.nomoredomains.monster',
+  'http://localhost:3000',
+];
+
+app.use(cors());
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
+
+app.options('*', cors());
 app.use(requestLogger);
 app.use(limiter);
 app.use(helmet());
