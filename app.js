@@ -30,12 +30,6 @@ mongoose.connect(BASE_URL, {
 // ];
 
 // app.use(cors());
-app.use(
-  cors({
-    origin: 'https://a-z.movies-explorer.students.nomoredomains.monster',
-    credentials: true,
-  }),
-);
 
 // app.use((req, res, next) => {
 //   const { origin } = req.headers;
@@ -65,6 +59,12 @@ app.use(requestLogger);
 // app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: 'https://a-z.movies-explorer.students.nomoredomains.monster',
+    credentials: true,
+  })
+);
 app.use(routes);
 app.use(errorLogger);
 app.use(errors());
