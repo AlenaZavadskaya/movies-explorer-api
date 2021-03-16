@@ -25,8 +25,8 @@ const allowedCors = [
   'http://a-z.movies-explorer.students.nomoredomains.monster',
   'https://www.a-z.movies-explorer.students.nomoredomains.monster',
   'http://www.a-z.movies-explorer.students.nomoredomains.monster',
+  'https://localhost:3000',
   'http://localhost:3000',
-  'http://localhost:3001',
 ];
 
 app.use(cors());
