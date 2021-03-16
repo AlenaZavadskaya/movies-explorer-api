@@ -61,9 +61,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: 'https://a-z.movies-explorer.students.nomoredomains.monster',
+    origin: 'https://alena.movies.students.nomoredomains.monster',
     credentials: true,
-  })
+  }),
 );
 app.use(routes);
 app.use(errorLogger);
