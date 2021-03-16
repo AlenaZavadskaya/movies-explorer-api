@@ -3,7 +3,7 @@ const { ObjectId } = require('mongoose').Types;
 
 const userRegisterValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).messages({
+    name: Joi.string().required.min(2).max(30).messages({
       'string.empty': 'Поле "name" должно быть заполнено',
       'string.min': 'Поле "name" должно быть не менее 2 символов',
       'string.max': 'Поле "name" должно быть не более 30 символов',

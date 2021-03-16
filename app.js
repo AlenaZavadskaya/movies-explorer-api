@@ -20,26 +20,26 @@ mongoose.connect(BASE_URL, {
   useUnifiedTopology: true,
 });
 
-// const allowedCors = [
-//   'https://a-z.movies-explorer.students.nomoredomains.monster',
-//   'http://a-z.movies-explorer.students.nomoredomains.monster',
-//   'https://www.a-z.movies-explorer.students.nomoredomains.monster',
-//   'http://www.a-z.movies-explorer.students.nomoredomains.monster',
-//   'https://localhost:3000',
-//   'http://localhost:3000',
-// ];
+const allowedCors = [
+  'https://alena.movies.students.nomoredomains.monster',
+  'http://alena.movies.students.nomoredomains.monster',
+  'https://www.alena.movies.students.nomoredomains.monster',
+  'http://www.alena.movies.students.nomoredomains.monster',
+  'https://localhost:3001',
+  'http://localhost:3001',
+];
 
-// app.use(cors());
+app.use(cors());
 
-// app.use((req, res, next) => {
-//   const { origin } = req.headers;
+app.use((req, res, next) => {
+  const { origin } = req.headers;
 
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-// 	}
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+	}
 
-//   next();
-// });
+  next();
+});
 
 // const corsOptions = {
 //   origin(origin, callback) {
@@ -53,18 +53,19 @@ mongoose.connect(BASE_URL, {
 
 // app.use(cors(corsOptions));
 
-// app.options('*', cors());
+
 app.use(requestLogger);
 // app.use(limiter);
 // app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: 'https://alena.movies.students.nomoredomains.monster',
-    credentials: true,
-  }),
-);
+app.options('*', cors());
+// app.use(
+//   cors({
+//     origin: 'https://alena.movies.students.nomoredomains.monster',
+//     credentials: true,
+//   }),
+// );
 app.use(routes);
 app.use(errorLogger);
 app.use(errors());
