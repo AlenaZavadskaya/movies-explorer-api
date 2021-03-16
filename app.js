@@ -29,7 +29,7 @@ mongoose.connect(BASE_URL, {
 //   'http://localhost:3000',
 // ];
 
-// app.use(cors(*));
+app.use(cors());
 
 // app.use((req, res, next) => {
 //   const { origin } = req.headers;
@@ -53,7 +53,7 @@ mongoose.connect(BASE_URL, {
 
 // app.use(cors(corsOptions));
 
-app.options('*', cors());
+// app.options('*', cors());
 app.use(requestLogger);
 // app.use(limiter);
 // app.use(helmet());
