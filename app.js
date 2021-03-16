@@ -32,7 +32,7 @@ mongoose.connect(BASE_URL, {
 // app.use(cors());
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://a-z.movies-explorer.students.nomoredomains.monster',
     credentials: true,
   }),
 );
