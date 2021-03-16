@@ -29,31 +29,31 @@ const allowedCors = [
   'http://localhost:3001',
 ];
 
-// app.use(cors());
+app.use(cors());
 
-// app.use((req, res, next) => {
-//   const { origin } = req.headers;
+app.use((req, res, next) => {
+  const { origin } = req.headers;
 
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin *', origin);
-// 	}
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+	}
 
-//   next();
-// });
+  next();
+});
 
-const corsOptions = {
-  origin(origin, callback) {
-    if (allowedCors.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS.'));
-    }
-  },
-};
+// const corsOptions = {
+//   origin(origin, callback) {
+//     if (allowedCors.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS.'));
+//     }
+//   },
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
-// app.options('*', cors());
+app.options('*', cors());
 app.use(requestLogger);
 // app.use(limiter);
 // app.use(helmet());
