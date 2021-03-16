@@ -3,12 +3,13 @@ const { ObjectId } = require('mongoose').Types;
 
 const userRegisterValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required.min(2).max(30).messages({
-      'string.empty': 'Поле "name" должно быть заполнено',
-      'string.min': 'Поле "name" должно быть не менее 2 символов',
-      'string.max': 'Поле "name" должно быть не более 30 символов',
-      'any.required': 'Поле "name" обязательное для заполнения',
-    }),
+    name: Joi.string().required().min(2).max(30)
+      .messages({
+        'string.empty': 'Поле "name" должно быть заполнено',
+        'string.min': 'Поле "name" должно быть не менее 2 символов',
+        'string.max': 'Поле "name" должно быть не более 30 символов',
+        'any.required': 'Поле "name" обязательное для заполнения',
+      }),
     email: Joi.string().required().email().messages({
       'string.empty': 'Поле "email" должно быть заполнено',
       'string.email': 'Поле "email" содержит некорректные данные',
@@ -39,13 +40,12 @@ const userLoginValidation = celebrate({
 
 const userUpdateValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30)
-      .messages({
-        'string.empty': 'Поле "name" должно быть заполнено',
-        'string.min': 'Поле "name" должно быть не менее 2 символов',
-        'string.max': 'Поле "name" должно быть не более 30 символов',
-        'any.required': 'Поле "name" обязательное для заполнения',
-      }),
+    name: Joi.string().min(2).max(30).messages({
+      'string.empty': 'Поле "name" должно быть заполнено',
+      'string.min': 'Поле "name" должно быть не менее 2 символов',
+      'string.max': 'Поле "name" должно быть не более 30 символов',
+      'any.required': 'Поле "name" обязательное для заполнения',
+    }),
     email: Joi.string().email().messages({
       'string.empty': 'Поле "email" должно быть заполнено',
       'string.email': 'Поле "email" содержит некорректные данные',
@@ -109,7 +109,9 @@ const movieValidation = celebrate({
       .custom((value, helper) => {
         const regExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gm;
         if (!value.match(regExp)) {
-          return helper.message('Поле "thumbnail" содержит некорректные данные');
+          return helper.message(
+            'Поле "thumbnail" содержит некорректные данные'
+          );
         }
         return value;
       })
@@ -117,10 +119,9 @@ const movieValidation = celebrate({
         'string.empty': 'Поле "thumbnail" должно быть заполнено',
         'any.required': 'Поле "thumbnail" обязательное для заполнения',
       }),
-    movieId: Joi.number().required()
-      .messages({
-        'any.required': 'Поле "movieId" обязательное для заполнения.',
-      }),
+    movieId: Joi.number().required().messages({
+      'any.required': 'Поле "movieId" обязательное для заполнения.',
+    }),
     nameRU: Joi.string().required().messages({
       'string.empty': 'Поле "nameRU" должно быть заполнено',
       'any.required': 'Поле "nameRU" обязательное для заполнения',
@@ -133,14 +134,18 @@ const movieValidation = celebrate({
 });
 
 const movieIdValidation = celebrate({
-  params: Joi.object().keys({
-    movieId: Joi.string().required().custom((value, helpers) => {
-      if (ObjectId.isValid(value)) {
-        return value;
-      }
-      return helpers.message('id указано некорректно');
-    }),
-  }).unknown(true),
+  params: Joi.object()
+    .keys({
+      movieId: Joi.string()
+        .required()
+        .custom((value, helpers) => {
+          if (ObjectId.isValid(value)) {
+            return value;
+          }
+          return helpers.message('id указано некорректно');
+        }),
+    })
+    .unknown(true),
 });
 
 module.exports = {
