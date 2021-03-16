@@ -25,23 +25,35 @@ const allowedCors = [
   'http://a-z.movies-explorer.students.nomoredomains.monster',
   'https://www.a-z.movies-explorer.students.nomoredomains.monster',
   'http://www.a-z.movies-explorer.students.nomoredomains.monster',
-	'http://localhost:3000',
-	'http://localhost:3001',
+  'http://localhost:3000',
+  'http://localhost:3001',
 ];
 
-app.use(cors());
+// app.use(cors());
 
-app.use((req, res, next) => {
-  const { origin } = req.headers;
+// app.use((req, res, next) => {
+//   const { origin } = req.headers;
 
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin *', origin);
-  }
+//   if (allowedCors.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin *', origin);
+// 	}
 
-  next();
-});
+//   next();
+// });
 
-app.options('*', cors());
+const corsOptions = {
+  origin(origin, callback) {
+    if (allowedCors.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS.'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+
+// app.options('*', cors());
 app.use(requestLogger);
 // app.use(limiter);
 // app.use(helmet());
