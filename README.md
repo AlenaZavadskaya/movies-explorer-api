@@ -1,8 +1,8 @@
 # Movies-explorer-api
 
 ## API сервиса поиска фильмов
-https://api.a-z.movies-explorer.students.nomoredomains.monster/
-https://www.api.a-z.movies-explorer.students.nomoredomains.monster/
+https://api.alena.movies.students.nomoredomains.monster/
+https://www.api.alena.movies.students.nomoredomains.monster/
 
 ### Запуск проекта
 npm run start — запускает сервер
