@@ -3,10 +3,14 @@
 ## [API сервиса поиска фильмов](https://alena.movies.students.nomoredomains.monster/)
 
 ### :computer: Установка и запуск проекта
-> `git clone https://github.com/AlenaZavadskaya/movies-explorer-api.git` - клонирует репозиторий<br/>
-> `npm install` - устанавливает зависимости<br/>
-> `npm run start` — запускает сервер<br/>
-> `npm run dev` — запускает сервер с hot-reload
+>*клонируйте репозиторий*<br/>
+> `git clone https://github.com/AlenaZavadskaya/movies-explorer-api.git`<br/>
+>*установите зависимости*<br/>
+> `npm install`<br/>
+>*запустите сервер*<br/>
+> `npm run start`<br/>
+>*запустите сервер с hot-reload*<br/>
+> `npm run dev`
 
 ### :key: Auth
 - POST /signup - создание пользователя с переданными данными: name, email, password
