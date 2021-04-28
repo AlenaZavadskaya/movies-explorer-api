@@ -1,6 +1,6 @@
 # Movies-explorer-api :tv:
 
-## [API сервиса поиска фильмов](https://alena.movies.students.nomoredomains.monster/)
+## [API сервиса поиска фильмов](https://alenazavadskaya.site/)
 
 ### :computer: Установка и запуск проекта
 >*клонируйте репозиторий*<br/>
