@@ -21,10 +21,10 @@ mongoose.connect(BASE_URL, {
 });
 
 const allowedCors = [
-  'https://alena.movies.students.nomoredomains.monster',
-  'http://alena.movies.students.nomoredomains.monster',
-  'https://www.alena.movies.students.nomoredomains.monster',
-  'http://www.alena.movies.students.nomoredomains.monster',
+  'https://alenazavadskaya.site.by',
+  'http://alenazavadskaya.site.by',
+  'https://www.alenazavadskaya.site.by',
+  'http://www.alenazavadskaya.site.by',
   'https://localhost:3001',
   'http://localhost:3001',
 ];
