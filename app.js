@@ -22,6 +22,8 @@ mongoose.connect(BASE_URL, {
 
 const allowedCors = [
   'https://alenazavadskaya.site',
+  'https://alenazavadskaya.site/signin',
+  'https://api.alenazavadskaya.site/signup',
   'http://alenazavadskaya.site',
   'https://www.alenazavadskaya.site',
   'http://www.alenazavadskaya.site',
